@@ -1,13 +1,41 @@
-from HTMLParser import HTMLParser
+#!/usr/bin/env/ python
+#MIT License
+
+#Copyright (c) 2016 Yetoo1, Scott Cohen
+
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+#If you contributed to this file, add your name to the author variable and the credits variable, if you didn't contribute to this file, add your name to the credits variable
+__author__ = "Scott Cohen"
+__copyright__ = "Copyright 2016, Samirs Call"
+__credits__ = "Scott Cohen"
+__license__ = "MIT"
+__version__ = "<need to make shell script to increment version and send to git>"
+__maintainer__ = "Scott Cohen"
+__email__ = "yetoohappy@gmail.com"
+__status__ = "Development"  
+#from HTMLParser import HTMLParser
 import urllib2
 import re
 response = urllib2.urlopen('http://webservice.prodigiq.com/wfids/LGB/small?rows=20#qt-flights_small_view')
 html = response.read()
 html = html.split("\n")
-#print html
-#for line in html:
-	#print line
-	#if (line)
+#yes a better way would to be splitting the file up into two parts so you don't have to wait for the program to trip over itself, but I really don't want to at the moment, if someone else does plase implement it 
 #for the gui, the table of values will show
 #also, ask teacher for verification if this is going in the right direction
 def arrivals():
@@ -17,7 +45,7 @@ def arrivals():
 #also, as of now this is the console version, the final version will be gui	
 	i = 0
 	k = 0
-	listamount = 7 #this variable will be changed by the user and will have a global varient just incase the user wants to see both the arrivals and departures by this interval. The maximum possibility of this variable for a unique result is 19. The default could be 7 but it most likely will change.
+	listamount = 7 #this variable will be changed by the user and will have a global varient just incase the user wants to see both the arrivals and departures by this interval. The maximum possibility of this variable for a unique result is 19. The default could be 7 but it most likely will change. When global variable implemented, must create if statements to detect a switch that occurs when a button is pressed to use gloabl instead of local
 	pattern = "<td>"
 	pattern2 = "<div class=\"view view-departures"
 	for line in html:
@@ -39,42 +67,34 @@ def arrivals():
 			i += 1
 			#as of now it's modulo 4 but it should become five for a tag that it's not reading but soon will
 			if i % 4 == 0:			#this is for debugging
-				print "-----",i/4,"----"	#also this is part of the comment above	
+				print "-----",i/4,"-----"	#also this is part of the comment above	
 			if i % 4 == 0 and i == listamount * 4: 
 				#print "end" this won't work because this doesn't mean it won't stop iterating
 				break
 				#pass
-				
+def departures():				
+	i = 0
+	k = 0
+	verified = 0 #verified set to 1 means depature head has been met and 0 means that it has no
+	listamount = 7
+	start = "<div class=\"view view-departures"
+	pattern = "<td>"
+	for line in html:
+		if verified != 1:
+			pass
+		else:
+			if pattern in line:
+				linenospace = line.split("</td>", 1)[0]
+				linenospace2 = linenospace.split("<td>", 1)[-1]
+				print linenospace2
+				i += 1
+				if i % 4 == 0:
+					print "-----",i/4,"d-----" # the d is for departure to duifferentiate from the detatched present which is is the arrivals (failed attempt at aliteration) 
+				if i % 4 == 0 and i == listamount * 4:
+					break
+
+arrivals()
+departures()		
 	
-		
-arrivals()		
-	
-#tagb = 0
-#tagba = 0
 
-#class MyHTMLParser(HTMLParser):
-#    def handle_starttag(self, tag, attrs):
-#	if tag == "!tr":	
-#		tagb = 0
-#	elif tag == "tr":        
-#		print "Encountered a start tag:", tag
-#		tagb = 1	
-#	else:
-#		tagb = 0 #just to be sure, like I know that the if not is already doing it's job, but still, I feel like some of these variables are tricky dicky
-#      
-
-#    def handle_endtag(self, tag):
-#	if (tag != "tr"):
-#		tagba = 0
-#	elif tag == "tr":
-#        	print "Encountered an end tag :", tag
-#    		tagba = 1
-#	else:    
-#		tagba = 0
-
-#     
-#   
-## instantiate the parser and fed it some HTML
-#parser = MyHTMLParser()
-#parser.feed(html)
 
