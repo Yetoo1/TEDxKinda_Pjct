@@ -39,6 +39,8 @@ html = html.split("\n")
 #for the gui, the table of values will show
 #also, ask teacher for verification if this is going in the right direction
 #make recommended to view 7 at once as the actual page changes count, wait crap, it doesn't matter just make it all some large number, like 35 so that it gets a list of all planes, but the user can still decide 
+
+#what this code should hvae been doing is inputting individual words into a database referenced by a tag so it would be easier to find everything, but for the general prupose of this, what we have here, to the extent of my knowledge, is alright.
 def arrivals():
 	print "Arrivals\n"
 #this little bit is only for the arrivals, the departures will come later
