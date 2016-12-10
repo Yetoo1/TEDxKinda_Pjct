@@ -42,6 +42,7 @@ html = html.split("\n")
 
 #what this code should hvae been doing is inputting individual words into a database referenced by a tag so it would be easier to find everything, but for the general prupose of this, what we have here, to the extent of my knowledge, is alright.
 #also don't tell me that we could be using iatacodes.org becuase real men parse their data from datapages.
+#eventually get whether into this thing
 def arrivals():
 	print "Arrivals\n"
 #this little bit is only for the arrivals, the departures will come later
