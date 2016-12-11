@@ -35,6 +35,8 @@ import re
 response = urllib2.urlopen('http://webservice.prodigiq.com/wfids/LGB/small?rows=20#qt-flights_small_view')
 html = response.read()
 html = html.split("\n")
+#the way this file is set up may seem like the user may not be able to just see departures, but who said that background processes didn't exist
+#print html, "\n"
 #yes a better way would to be splitting the file up into two parts so you don't have to wait for the program to trip over itself, but I really don't want to at the moment, if someone else does plase implement it 
 #for the gui, the table of values will show
 #also, ask teacher for verification if this is going in the right direction
@@ -51,68 +53,78 @@ def arrivals():
 #also, as of now this is the console version, the final version will be gui	
 	i = 0
 	k = 0
-	listamount = 19 #this variable will be changed by the user and will have a global varient just incase the user wants to see both the arrivals and departures by this interval. The maximum possibility of this variable for a unique result is 19 NO WAIT IT COULD BE 12? CRAP IT CHANGES!. The default could be 7 but it most likely will change. When global variable implemented, must create if statements to detect a switch that occurs when a button is pressed to use gloabl instead of local
+	#listamount = 19 #this variable will be changed by the user and will have a global varient just incase the user wants to see both the arrivals and departures by this interval. The maximum possibility of this variable for a unique result is 19 NO WAIT IT COULD BE 12? CRAP IT CHANGES!. The default could be 7 but it most likely will change. When global variable implemented, must create if statements to detect a switch that occurs when a button is pressed to use gloabl instead of local
+	listamount = 5
 	pattern = "<td>"
 	pattern2 = "<div class=\"view view-departures"
 	for line in html:
-	     #for c in line:
+		k += 1	     
+		#for c in line:
 		#print line
 		#this is here to stop any possibility of going over to the next dataset
 		if pattern2 in line:
-			print "Reached the end of section!"					
+			print "Reached the end of section!\n"							
+			departures(k)		
 			break		
 		
 		if pattern in line:
 			#is just finding location
 			#get the ontime part
 			#the match and stuff isn't needed, it's kept for now just in case it actually is needed			
-			match = re.search(pattern, line)
-			s = match.start()
+			#match = re.search(pattern, line)
+			#s = match.start()
 			linenospace = line.split("</td>", 1)[0]
-			linenospace2 = linenospace.split("<td>", 1)[-1]	
-			print linenospace2		
+			linenospace2 = linenospace.split("<td>", 1)[-1]				
+			if len(linenospace2) == 1:			
+				print "gate", linenospace2
+			else:
+				print linenospace2		
 			i += 1
-			#as of now it's modulo 4 but it should become five for a tag that it's not reading but soon will
+			#as of now it's modulo 4 but it should become five for a tag that it's not reading but soon will because of the class
 			if i % 4 == 0:			#this is for debugging			
-				print "-----",i/4,"-----"	#also this is part of the comment above	
+				print "-----",i/4,"-----"	#also this is part of the comment above			
 			if i % 4 == 0 and i == listamount * 4: 
 				#print "end" this won't work because this doesn't mean it won't stop iterating			
 				print "Reached the end of the user's selection. of arrivals."			
+				departures(k)
 				break
 								
 			
-def departures():
+def departures(k):
 	#IMPORTANT: MUST GO BACK TO READING FROM POINT IN FILES TO READ AFTER, THE FILE CHANGES, DISREGARD ANY OTHER SOLUTION FOR THIS FUNCTION, I CAN'T FIND THAT THING I SAID ABOUT HAVING A VARIABLE TO CONTROL WHERE TO READ FROM FOR WHICH THE VARIABLE IS REFERENCED FROM FUNCTION TO FUNCTION, WHEREEVER IT IS, DON'T LISTEN TO IT!
-	print "Departures:\n"				
+	print "Departures:\n"
+	#print "Length of html file is", len(html)
+	#print "What has been done so far", k				
 	#i = 76 #doesn't matter if you set the i, it starts at the same place, remember we are sorting lines here, we are merely manipulating the mechanisim to sort through lines.
 	i = 0
-	k = 0
+	l = 0
+	#k = 0
 	verify = 0
-	listamount = 19
+	listamount = 7
 	#start = "view-id-departures"
 	pattern = "<td>"
 	for line in html:
-	#for i in range (76, len(html))	
-		if pattern in line:			
-			linenospace = line.split("</td>", 1)[0]
-			linenospace2 = linenospace.split("<td>", 1)[-1]
-			if i > 75:						
+		if l >= k:
+			#print html[l]
+			if pattern in line:
+				linenospace = line.split("</td>", 1)[0]
+				linenospace2 = linenospace.split("<td>", 1)[-1]
 				print linenospace2
-			i += 1
-			if i % 4 == 0 and i > 76: #19 * 4
-				#a = i - 76				
-				print "-----",(i/4)-19,"d-----" # the d is for departure to differentiate from the detatched present which is is the arrivals (failed attempt at aliteration)
-			#this is the proprietary, this is what we are manipulating, the if statement, we are chaning the amount of water that goes into the stream, the if statement is the log. Just changing the rate of the water will change it, i, it's the ultimate exit that changes it.  
+				i += 1
+				if i % 4 == 0: #19*4
+					print "-----",i/4,"d-----" # the d is for departure to differentiate from the detatched present which is the arrivals (failed attempt at aliteration)
+#			#this is the proprietary, this is what we are manipulating, the if statement, we are chaning the amount of water that goes into the stream, the if statement is the log. Just changing the rate of the water will change it, i, it's the ultimate exit that changes it.  
 			#if i % 4 == 0 and i == (listamount * 4)+76: #19 * 4
-			if i % 4 == 0 and i == listamount * 4:			
-				print "Reached the end of the user's selection of departures."		
-				break
-			
-				
+				if i % 4 == 0 and i == listamount * 4:			
+					print "Reached the end of the user's selection of departures."		
+					break
+		else:
+			pass
+		l += 1
 
 arrivals()
-print "\n"
-departures()	
+
+#departures()	
 	
 #plane
 #city
