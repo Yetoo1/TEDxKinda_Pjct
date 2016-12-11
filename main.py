@@ -80,8 +80,9 @@ def arrivals():
 				print "Reached the end of the user's selection. of arrivals."			
 				break
 								
-			#fix	
+			
 def departures():
+	#IMPORTANT: MUST GO BACK TO READING FROM POINT IN FILES TO READ AFTER, THE FILE CHANGES, DISREGARD ANY OTHER SOLUTION FOR THIS FUNCTION, I CAN'T FIND THAT THING I SAID ABOUT HAVING A VARIABLE TO CONTROL WHERE TO READ FROM FOR WHICH THE VARIABLE IS REFERENCED FROM FUNCTION TO FUNCTION, WHEREEVER IT IS, DON'T LISTEN TO IT!
 	print "Departures:\n"				
 	#i = 76 #doesn't matter if you set the i, it starts at the same place, remember we are sorting lines here, we are merely manipulating the mechanisim to sort through lines.
 	i = 0
