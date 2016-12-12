@@ -34,7 +34,7 @@ import urllib2
 import re
 response = urllib2.urlopen('http://webservice.prodigiq.com/wfids/LGB/small?rows=20#qt-flights_small_view')
 html = response.read()
-print html
+#print html
 html = html.split("\n")
 #the way this file is set up may seem like the user may not be able to just see departures, but who said that background processes didn't exist
 #print html, "\n"
@@ -46,7 +46,8 @@ html = html.split("\n")
 #what this code should hvae been doing is inputting individual words into a database referenced by a tag so it would be easier to find everything, but for the general prupose of this, what we have here, to the extent of my knowledge, is alright.
 #also don't tell me that we could be using iatacodes.org becuase real men parse their data from datapages.
 #eventually get whether into this thing
-glistamount = len(html) #alright, I'm making this global because, 1, the script is being really tricky dicky if I don't, and 2, when this gets to GUI, I'll most likely be able to change what loads from there.   
+glistamount = len(html) #alright, I'm making this global because, 1, the script is being really tricky dicky if I don't, and 2, when this gets to GUI, I'll most likely be able to change what loads from there.
+classes = ["ontime", "delayed"]   
 def arrivals():
 	print "Arrivals\n"
 #this little bit is only for the arrivals, the departures will come later
@@ -59,9 +60,12 @@ def arrivals():
 	#listamount = 19 #this variable will be changed by the user and will have a global varient just incase the user wants to see both the arrivals and departures by this interval. The maximum possibility of this variable for a unique result is 19 NO WAIT IT COULD BE 12? CRAP IT CHANGES!. The default could be 7 but it most likely will change. When global variable implemented, must create if statements to detect a switch that occurs when a button is pressed to use gloabl instead of local
 	#listamount = 5
 	pattern = "<td>"
+	patterncon = "td class=\"" #there are two classes that the if statement(s) needs to sift through, 'ontime' and 'delayed'
 	pattern2 = "<div class=\"view view-departures"
 	for line in html:
 		k += 1	     
+		wow1 = 0
+		wow2 = 0		
 		#for c in line:
 		#print line
 		#this is here to stop any possibility of going over to the next dataset
@@ -81,21 +85,33 @@ def arrivals():
 			if len(linenospace2) == 1:			
 				print "gate", linenospace2
 			else:
-				print linenospace2		
-			i += 1
+				print linenospace2
+			wow1 = 1 
+		if patterncon in line:
+			#needs more polish
+			classnospacebeg = line.split("<td class=\"", 1)[-1]
+			classnospaceendandbeg = classnospacebeg.split("\">", 1)[0]
+			classwithwordsnobeg = line.split("\">", 1)[-1]
+			classwithwordsnoendandbeg = classwithwordsnobeg.split("</td>",1)[0]
+			#yes I know it's inefficient but like, I suck at python right now so yeah.			
+			if classnospaceendandbeg == classes[0]:
+				print classes[0], classwithwordsnoendandbeg, "\n"
+				wow2 = 1
+			
+			if classnospaceendandbeg == classes[1]:
+				print classes[1], classwithwordsnoendandbeg, "\n"			
+				wow2 = 1
 			#as of now it's modulo 4 but it should become five for a tag that it's not reading but soon will because of the class
-			if i % 4 == 0:			#this is for debugging			
-				print "-----",i/4,"-----"	#also this is part of the comment above			
-			#if i % 4 == 0 and i == glistamount * 4: 
-				#print "end" this won't work because this doesn't mean it won't stop iterating			
-			#	print "Reached the end of the user's selection. of arrivals."			
-			#	k = 0
-			#	for line in html: #this needs to be here because if only departures(k) was here, it would have only increased to the amount of i, which is not what we wish to have to mark the end point of arrivals
-			#		k += 1					
-			#		if pattern2 in line:
-						#print "Reached the end of section!\n"							
-			#			departures(k)		
-			#			break		
+		
+#-------------THIS DOESN'T WORK TOO!----------------#
+		if wow1 == 1 and wow2 == 1:
+			i += 1
+#-------------THE DEBUGGING WON'T WORK!-------------# 		
+		#if i % 4 == 0:			#this is for debugging			
+			#print "-----",i/4,"-----"	#also this is part of the comment above			
+#-------------THE DEBUGGING WON'T WORK!-------------#
+
+			#if you wanted the previous code, go on the history of the GitHub 	
 								
 			
 def departures(k):
@@ -112,6 +128,7 @@ def departures(k):
 	#start = "view-id-departures"
 	pattern = "<td>"
 	pattern2 = "<div id=\"cboxOverlay>"
+	patterncon = "td class=\"" #there are two classes that the if statement(s) needs to sift through, 'ontime' and 'delayed'
 	for line in html:
 		if l >= k:
 			#print html[l]
@@ -119,12 +136,35 @@ def departures(k):
 				print "Reached end of selection!"
 				break
 			if pattern in line:
+			#is just finding location
+			#get the ontime part
+			#the match and stuff isn't needed, it's kept for now just in case it actually is needed			
+			#match = re.search(pattern, line)
+			#s = match.start()
 				linenospace = line.split("</td>", 1)[0]
-				linenospace2 = linenospace.split("<td>", 1)[-1]
-				print linenospace2
-				i += 1
-				if i % 4 == 0: #19*4
-					print "-----",i/4,"d-----" # the d is for departure to differentiate from the detatched present which is the arrivals (failed attempt at aliteration)
+				linenospace2 = linenospace.split("<td>", 1)[-1]				
+				if len(linenospace2) == 1:			
+					print "gate", linenospace2
+				else:
+					print linenospace2
+				wow1 = 1 
+			if patterncon in line:
+				#needs more polish				
+				classnospacebeg = line.split("<td class=\"", 1)[-1]
+				classnospaceendandbeg = classnospacebeg.split("\">", 1)[0]
+				classwithwordsnobeg = line.split("\">", 1)[-1]
+				classwithwordsnoendandbeg = classwithwordsnobeg.split("</td>",1)[0]
+				#yes I know it's inefficient but like, I suck at python right now so yeah.			
+				if classnospaceendandbeg == classes[0]:
+					print classes[0], classwithwordsnoendandbeg, "\n"
+					wow2 = 1
+			
+				if classnospaceendandbeg == classes[1]:
+					print classes[1], classwithwordsnoendandbeg, "\n"	
+#-----------------------------THIS DEBUGGING WON'T WORK!--------------------------------------#
+#				i += 1
+#				if i % 4 == 0: #19*4
+#					print "-----",i/4,"d-----" # the d is for departure to differentiate from the detatched present which is the arrivals (failed attempt at aliteration)
 #			#this is the proprietary, this is what we are manipulating, the if statement, we are chaning the amount of water that goes into the stream, the if statement is the log. Just changing the rate of the water will change it, i, it's the ultimate exit that changes it.  
 			#if i % 4 == 0 and i == (listamount * 4)+76: #19 * 4
 				#if i % 4 == 0 and i == glistamount * 4:			
@@ -142,4 +182,4 @@ arrivals()
 #city
 #time
 #gate
-
+#status
