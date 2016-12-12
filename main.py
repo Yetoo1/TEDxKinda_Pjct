@@ -1,4 +1,4 @@
-#!/usr/bin/env/ python
+#!/usr/bin/python2.7
 #MIT License
 
 #Copyright (c) 2016 Yetoo1, Scott Cohen
