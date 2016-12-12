@@ -35,28 +35,46 @@ import re
 import Tkinter as tk
 import tkMessageBox
 from Tkinter import *
+arrivals = 0 #zero means not shown, 1 means shown
+departures = 0 #zero means not shown, 1 means shown
 #gui
 root = tk.Tk()
 frame = Frame(root)
 frame.pack()
 #bottomframe = Frame(root)
 #bottomframe.pack(side = TOP)
+def showarrivals():
+	print "Arrivals are shown."
+	departures = 0
+	arriavls = 1
+
+def showdepartures():
+	print "Departures are shown."
+	arrivals = 0
+	departures = 1
+
 flight = tk.StringVar()
 city = tk.StringVar()
 time = tk.StringVar()
 gate = tk.StringVar()
 status = tk.StringVar()
 #none of the widths work the way they should
+arrivals = tk.Button(frame, text="Arrivals", command = showarrivals)
+departures = tk.Button(frame, text="Departures", command = showdepartures)
 flightl = Label( frame, textvariable=flight, relief=SUNKEN, width=(frame.winfo_width()/5))
 cityl = Label(frame, textvariable=city, relief=SUNKEN, width=(frame.winfo_width()/5))
 timel = Label(frame, textvariable=time, relief=SUNKEN, width=(frame.winfo_width()/5))
 gatel = Label(frame, textvariable=gate, relief=SUNKEN, width=(frame.winfo_width()/5))
 statusl = Label(frame, textvariable=status, relief=SUNKEN, width=(frame.winfo_width()/5))
+arrivall = Label(frame, textvariable=status, relief=SUNKEN)
+departure = Label(frame, textvariable=status, relief=SUNKEN)
 flight.set("Flight")
 city.set("City")
 time.set("Time")
 gate.set("gate")
 status.set("Status")
+arrivals.pack(side = LEFT)
+departures.pack(side = LEFT)
 flightl.pack(side = LEFT)
 cityl.pack(side = LEFT)
 timel.pack(side = LEFT)
@@ -70,7 +88,6 @@ scrollbar.pack(side="right", fill="y")
 lb.pack(side="left",fill="both", expand=True)
 #for i in range(0,100):
 #    lb.insert("end", "item #%s" % i)
-
 
 #behind the scenes
 response = urllib2.urlopen('http://webservice.prodigiq.com/wfids/LGB/small?rows=20#qt-flights_small_view')
