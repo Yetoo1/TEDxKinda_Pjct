@@ -32,6 +32,47 @@ __status__ = "Development"
 #from HTMLParser import HTMLParser
 import urllib2
 import re
+import Tkinter as tk
+import tkMessageBox
+from Tkinter import *
+#gui
+root = tk.Tk()
+frame = Frame(root)
+frame.pack()
+#bottomframe = Frame(root)
+#bottomframe.pack(side = TOP)
+flight = tk.StringVar()
+city = tk.StringVar()
+time = tk.StringVar()
+claim = tk.StringVar()
+status = tk.StringVar()
+#none of the widths work the way they should
+flightl = Label( frame, textvariable=flight, relief=SUNKEN, width=(frame.winfo_width()/5))
+cityl = Label(frame, textvariable=city, relief=SUNKEN, width=(frame.winfo_width()/5))
+timel = Label(frame, textvariable=time, relief=SUNKEN, width=(frame.winfo_width()/5))
+claiml = Label(frame, textvariable=claim, relief=SUNKEN, width=(frame.winfo_width()/5))
+statusl = Label(frame, textvariable=status, relief=SUNKEN, width=(frame.winfo_width()/5))
+flight.set("Flight")
+city.set("City")
+time.set("Time")
+claim.set("Claim")
+status.set("Status")
+flightl.pack(side = LEFT)
+cityl.pack(side = LEFT)
+timel.pack(side = LEFT)
+claiml.pack(side = LEFT)
+statusl.pack(side = LEFT)
+scrollbar = tk.Scrollbar(root, orient="vertical")
+lb = tk.Listbox(root, width=50, height=20, yscrollcommand=scrollbar.set)
+scrollbar.config(command=lb.yview)
+
+scrollbar.pack(side="right", fill="y")
+lb.pack(side="left",fill="both", expand=True)
+#for i in range(0,100):
+#    lb.insert("end", "item #%s" % i)
+
+
+#behind the scenes
 response = urllib2.urlopen('http://webservice.prodigiq.com/wfids/LGB/small?rows=20#qt-flights_small_view')
 html = response.read()
 #print html
@@ -84,8 +125,10 @@ def arrivals():
 			linenospace2 = linenospace.split("<td>", 1)[-1]				
 			if len(linenospace2) == 1:			
 				print "gate", linenospace2
+				lb.insert("end", linenospace2)
 			else:
 				print linenospace2
+				lb.insert("end", linenospace2)
 			wow1 = 1 
 		if patterncon in line:
 			#needs more polish
@@ -145,6 +188,7 @@ def departures(k):
 				linenospace2 = linenospace.split("<td>", 1)[-1]				
 				if len(linenospace2) == 1:			
 					print "gate", linenospace2
+					
 				else:
 					print linenospace2
 				wow1 = 1 
@@ -181,5 +225,6 @@ arrivals()
 #plane
 #city
 #time
-#gate
+#gate/claim
 #status
+root.mainloop() #this is for the gui
