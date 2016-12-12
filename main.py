@@ -35,6 +35,7 @@ import re
 import Tkinter as tk
 import tkMessageBox
 from Tkinter import *
+import tkMessageBox
 arrivals = 0 #zero means not shown, 1 means shown
 departures = 0 #zero means not shown, 1 means shown
 #gui
@@ -142,7 +143,10 @@ def arrivals():
 			linenospace2 = linenospace.split("<td>", 1)[-1]				
 			if len(linenospace2) == 1 or len(linenospace2) == 2:			
 				print "gate", linenospace2
-				lb.insert("end", linenospace2)
+				if arrivals == 1:
+					lb.insert("end", linenospace2)
+				else:
+					pass
 			else:
 				print linenospace2
 				lb.insert("end", linenospace2)
