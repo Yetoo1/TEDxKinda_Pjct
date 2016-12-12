@@ -123,7 +123,7 @@ def arrivals():
 			#s = match.start()
 			linenospace = line.split("</td>", 1)[0]
 			linenospace2 = linenospace.split("<td>", 1)[-1]				
-			if len(linenospace2) == 1:			
+			if len(linenospace2) == 1 or len(linenospace2) == 2:			
 				print "gate", linenospace2
 				lb.insert("end", linenospace2)
 			else:
@@ -186,7 +186,7 @@ def departures(k):
 			#s = match.start()
 				linenospace = line.split("</td>", 1)[0]
 				linenospace2 = linenospace.split("<td>", 1)[-1]				
-				if len(linenospace2) == 1:			
+				if len(linenospace2) == 1 or len(linenospace2) == 2: 
 					print "gate", linenospace2
 					
 				else:
