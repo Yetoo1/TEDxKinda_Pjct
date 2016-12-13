@@ -130,6 +130,7 @@ def arrivals():
 		#this is here to stop any possibility of going over to the next dataset
 		if pattern2 in line:
 			print "Reached the end of section!\n"							
+			#comment the line below out if you just want arrivals
 			departures(k)		
 			break		
 		
@@ -139,18 +140,20 @@ def arrivals():
 			#the match and stuff isn't needed, it's kept for now just in case it actually is needed			
 			#match = re.search(pattern, line)
 			#s = match.start()
+			#you can't put wow1 right under else because that would mean no matter what, if the pattern is in the line it will increase, we don't want that I think, because it's counting too much or something
 			linenospace = line.split("</td>", 1)[0]
 			linenospace2 = linenospace.split("<td>", 1)[-1]				
 			if len(linenospace2) == 1 or len(linenospace2) == 2:			
 				print "gate", linenospace2
 				if arrivals == 1:
 					lb.insert("end", linenospace2)
-				else:
-					pass
+				wow1 = 1
+				#else:
+				#	pass
 			else:
 				print linenospace2
 				lb.insert("end", linenospace2)
-			wow1 = 1 
+				wow1 = 1 
 		if patterncon in line:
 			#needs more polish
 			classnospacebeg = line.split("<td class=\"", 1)[-1]
@@ -170,9 +173,11 @@ def arrivals():
 #-------------THIS DOESN'T WORK TOO!----------------#
 		if wow1 == 1 and wow2 == 1:
 			i += 1
+		else:
+			print "dam fix dis piece of"
 #-------------THE DEBUGGING WON'T WORK!-------------# 		
-		#if i % 4 == 0:			#this is for debugging			
-			#print "-----",i/4,"-----"	#also this is part of the comment above			
+		if i % 5 == 0:			#this is for debugging			
+			print "-----",i/5,"-----"	#also this is part of the comment above			
 #-------------THE DEBUGGING WON'T WORK!-------------#
 
 			#if you wanted the previous code, go on the history of the GitHub 	
