@@ -32,10 +32,13 @@ __status__ = "Development"
 #from HTMLParser import HTMLParser
 import urllib2
 import re
-import Tkinter as tk
-import tkMessageBox
-from Tkinter import *
-import tkMessageBox
+import imp
+#import Tkinter as tk
+#import tkMessageBox
+#from Tkinter import *
+#import tkMessageBox
+#THIS IS THE NO GUI VERSION, FOR PUBLIC SERVERS AND SUCH
+
 arrivals = 0 #zero means not shown, 1 means shown
 departures = 0 #zero means not shown, 1 means shown
 #gui
