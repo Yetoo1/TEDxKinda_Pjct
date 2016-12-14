@@ -42,9 +42,9 @@ import imp
 arrivals = 0 #zero means not shown, 1 means shown
 departures = 0 #zero means not shown, 1 means shown
 #gui
-root = tk.Tk()
-frame = Frame(root)
-frame.pack()
+#root = tk.Tk()
+#frame = Frame(root)
+#frame.pack()
 #bottomframe = Frame(root)
 #bottomframe.pack(side = TOP)
 def showarrivals():
@@ -57,39 +57,39 @@ def showdepartures():
 	arrivals = 0
 	departures = 1
 
-flight = tk.StringVar()
-city = tk.StringVar()
-time = tk.StringVar()
-gate = tk.StringVar()
-status = tk.StringVar()
+#flight = tk.StringVar()
+#city = tk.StringVar()
+#time = tk.StringVar()
+#gate = tk.StringVar()
+#status = tk.StringVar()
 #none of the widths work the way they should
-arrivals = tk.Button(frame, text="Arrivals", command = showarrivals)
-departures = tk.Button(frame, text="Departures", command = showdepartures)
-flightl = Label( frame, textvariable=flight, relief=SUNKEN, width=(frame.winfo_width()/5))
-cityl = Label(frame, textvariable=city, relief=SUNKEN, width=(frame.winfo_width()/5))
-timel = Label(frame, textvariable=time, relief=SUNKEN, width=(frame.winfo_width()/5))
-gatel = Label(frame, textvariable=gate, relief=SUNKEN, width=(frame.winfo_width()/5))
-statusl = Label(frame, textvariable=status, relief=SUNKEN, width=(frame.winfo_width()/5))
-arrivall = Label(frame, textvariable=status, relief=SUNKEN)
-departure = Label(frame, textvariable=status, relief=SUNKEN)
-flight.set("Flight")
-city.set("City")
-time.set("Time")
-gate.set("gate")
-status.set("Status")
-arrivals.pack(side = LEFT)
-departures.pack(side = LEFT)
-flightl.pack(side = LEFT)
-cityl.pack(side = LEFT)
-timel.pack(side = LEFT)
-gatel.pack(side = LEFT)
-statusl.pack(side = LEFT)
-scrollbar = tk.Scrollbar(root, orient="vertical")
-lb = tk.Listbox(root, width=50, height=20, yscrollcommand=scrollbar.set)
-scrollbar.config(command=lb.yview)
+#arrivals = tk.Button(frame, text="Arrivals", command = showarrivals)
+#departures = tk.Button(frame, text="Departures", command = showdepartures)
+#flightl = Label( frame, textvariable=flight, relief=SUNKEN, width=(frame.winfo_width()/5))
+#cityl = Label(frame, textvariable=city, relief=SUNKEN, width=(frame.winfo_width()/5))
+#timel = Label(frame, textvariable=time, relief=SUNKEN, width=(frame.winfo_width()/5))
+#gatel = Label(frame, textvariable=gate, relief=SUNKEN, width=(frame.winfo_width()/5))
+#statusl = Label(frame, textvariable=status, relief=SUNKEN, width=(frame.winfo_width()/5))
+#arrivall = Label(frame, textvariable=status, relief=SUNKEN)
+#departure = Label(frame, textvariable=status, relief=SUNKEN)
+#flight.set("Flight")
+#city.set("City")
+#time.set("Time")
+#gate.set("gate")
+#status.set("Status")
+#arrivals.pack(side = LEFT)
+#departures.pack(side = LEFT)
+#flightl.pack(side = LEFT)
+#cityl.pack(side = LEFT)
+#timel.pack(side = LEFT)
+#gatel.pack(side = LEFT)
+#statusl.pack(side = LEFT)
+#scrollbar = tk.Scrollbar(root, orient="vertical")
+#lb = tk.Listbox(root, width=50, height=20, yscrollcommand=scrollbar.set)
+#scrollbar.config(command=lb.yview)
 
-scrollbar.pack(side="right", fill="y")
-lb.pack(side="left",fill="both", expand=True)
+#scrollbar.pack(side="right", fill="y")
+#lb.pack(side="left",fill="both", expand=True)
 #for i in range(0,100):
 #    lb.insert("end", "item #%s" % i)
 
@@ -149,13 +149,13 @@ def arrivals():
 			if len(linenospace2) == 1 or len(linenospace2) == 2:			
 				print "gate", linenospace2
 				if arrivals == 1:
-					lb.insert("end", linenospace2)
-				wow1 = 1
+					#lb.insert("end", linenospace2)
+					wow1 = 1
 				#else:
 				#	pass
 			else:
 				print linenospace2
-				lb.insert("end", linenospace2)
+				#lb.insert("end", linenospace2)
 				wow1 = 1 
 		if patterncon in line:
 			#needs more polish
@@ -256,4 +256,4 @@ arrivals()
 #time
 #gate/claim
 #status
-root.mainloop() #this is for the gui
+#root.mainloop() #this is for the gui
