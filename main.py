@@ -49,13 +49,13 @@ departures = 0 #zero means not shown, 1 means shown
 #bottomframe.pack(side = TOP)
 def showarrivals():
 	print "Arrivals are shown."
-	departures = 0
-	arriavls = 1
+	#departures = 0
+	#arriavls = 1
 
 def showdepartures():
 	print "Departures are shown."
-	arrivals = 0
-	departures = 1
+	#arrivals = 0
+	#departures = 1
 
 #flight = tk.StringVar()
 #city = tk.StringVar()
