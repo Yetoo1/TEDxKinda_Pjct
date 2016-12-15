@@ -13,7 +13,7 @@ def main():
     		flightscut = flights[index].split(" ", 1)[0]
 		flightssmall.append(flightscut)
 		print flightssmall
-		if len(flightssmall) != len(set(flightssmall)):
+		if flightssmall in :
 			
 			k += 1
 		i =+ 1
