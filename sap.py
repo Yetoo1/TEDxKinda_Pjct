@@ -7,16 +7,21 @@ def main():
 	print flights,"\n", times	
 	#flightstocut = flights[0]
 	#flightcut =  flightstocut[:2]
-	i = 0
-	k = 0
-	for index, item in enumerate(flights):
-    		flightscut = flights[index].split(" ", 1)[0]
-		flightssmall.append(flightscut)
-		print flightssmall
-		if flightssmall in :
-			
-			k += 1
-		i =+ 1
-	print k		 
+	#I'm tired so shut up about how convoluted this is
+	#i = 0
+	#k = 0
+	#c = 0
+	#for index, item in enumerate(flights):
+    	#	flightscut = flights[index].split(" ", 1)[0]
+	#	flightssmall.append(flightscut)
+	#	print flightssmall
+	#	if flightscut in flightssmall:
+	#		k += 1
+	#		
+	#	i =+ 1
+	#for index2, item2 in enumerate(flightssmall):
+	#	if flightscut in flightsmall[k]:
+	#		c += 1	
+	#print k		 
 main()
 
